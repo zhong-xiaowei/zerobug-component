@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.zerobug.component.log.filter.NuclearMdcFilter,\
+  cn.com.zerobug.component.log.config.LogConfig
+org.springframework.context.ApplicationContextInitializer=\
+  cn.com.zerobug.component.log.config.TtlMdcAdapterInitializer

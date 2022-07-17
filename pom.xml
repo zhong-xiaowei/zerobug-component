@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.com.zerobug</groupId>
+    <artifactId>zerobug-component</artifactId>
+    <version>0.1.0-beta</version>
+
+    <packaging>pom</packaging>
+    <description>zerobug组件</description>
+
+    <modules>
+        <module>component-filter-starter</module>
+        <module>component-security-starter</module>
+        <module>component-data-permission-starter</module>
+        <module>component-log-starter</module>
+        <module>component-cache-starter</module>
+        <module>component-orm-starter</module>
+        <module>component-translate-starter</module>
+        <module>component-swagger-starter</module>
+        <module>component-excel-starter</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.com.zerobug</groupId>
+                <artifactId>zerobug-dependencies</artifactId>
+                <version>0.1.0-beta</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

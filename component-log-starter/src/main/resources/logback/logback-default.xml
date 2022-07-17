@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--
+        日志配置：
+                %m 输出代码中指定的消息
+                %n 输出一个回车换行符，Windows平台为“\r\n”，Unix平台为“\n”
+                %p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL
+                %r 输出自应用启动到输出该log信息耗费的毫秒数
+                %c 输出所属的类目，通常就是所在类的全名
+                %t 输出产生该日志事件的线程名
+                %d 输出日期格式 例：%d{yyyy-MM-dd HH:mm:ss.SSS}
+                %l 输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：TestLog.main(TestLog.java:10)
+    -->
+    <springProperty scope="context" name="log.path" source="logging.file.path" defaultValue="./logs"/>
+    <springProperty scope="context" name="log.maxHistory" source="logging.logback.rollingpolicy.max-history"
+                    defaultValue="30"/>
+    <springProperty scope="context" name="spring.application.name" source="spring.application.name"/>
+    <springProperty scope="context" name="server.port" source="server.port"/>
+
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- 彩色日志格式 -->
+
+    <springProperty scope="context" name="PATTERN_DEFAULT_COLOR" source="logging.common-pattern-color"
+                    defaultValue="%clr([${spring.application.name}:${server.port}]){red} %clr([tid:%X{trace}]){yellow} %clr([user:%X{userId}]) %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint}%clr(%5p){blue} %clr([${PID}]){magenta} %clr([%t:%r]){green} %clr([%logger{50}.%M:%L]){cyan} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <springProperty scope="context" name="PATTERN_DEFAULT" source="logging.common-pattern"
+                    defaultValue="[${spring.application.name}:${server.port}] [tid:%X{trace}] [user:%X{userId}] %d{yyyy-MM-dd HH:mm:ss.SSS} %5p [${PID}] [%t:%r] [%logger{50}.%M:%L] %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <!-- Console 输出设置 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 控制台是彩色日志，养眼 -->
+            <pattern>${PATTERN_DEFAULT_COLOR}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 文件保存日志的相关配置 ERROR -->
+    <appender name="ERROR_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 保存日志文件的路径 -->
+        <file>${log.path}/${spring.application.name}/error.log</file>
+        <!-- 日志格式 -->
+        <encoder>
+            <!-- 标准日志 -->
+            <pattern>${PATTERN_DEFAULT}</pattern>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 滚动后的日志文件名 -->
+            <fileNamePattern>${log.path}/${spring.application.name}/%d{yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <!-- 启动服务时，是否清理历史日志，一般不建议清理 -->
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <!-- 日志文件，到达多少容量，进行滚动 -->
+            <maxFileSize>128MB</maxFileSize>
+            <!-- 日志文件的总大小，0 表示不限制 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 日志文件的保留天数 -->
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="ASYNC_ERROR_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="ERROR_APPENDER"/>
+    </appender>
+
+    <!-- 文件保存日志的相关配置 INFO -->
+    <appender name="INFO_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 保存日志文件的路径 -->
+        <file>${log.path}/${spring.application.name}/info.log</file>
+        <!-- 日志格式 -->
+        <encoder>
+            <pattern>${PATTERN_DEFAULT}</pattern>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 滚动后的日志文件名 -->
+            <fileNamePattern>${log.path}/${spring.application.name}/%d{yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <!-- 启动服务时，是否清理历史日志，一般不建议清理 -->
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <!-- 日志文件，到达多少容量，进行滚动 -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志文件的总大小，0 表示不限制 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 日志文件的保留天数 -->
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="ASYNC_INFO_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="INFO_APPENDER"/>
+    </appender>
+
+    <!-- 埋点包的日志 -->
+    <appender name="POINT_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 保存日志文件的路径 -->
+        <file>${log.path}/${spring.application.name}/point.log</file>
+        <!-- 日志格式 -->
+        <encoder>
+            <pattern>${PATTERN_DEFAULT}</pattern>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 滚动后的日志文件名 -->
+            <fileNamePattern>${log.path}/${spring.application.name}/%d{yyyy-MM}/point-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <!-- 启动服务时，是否清理历史日志，一般不建议清理 -->
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <!-- 日志文件，到达多少容量，进行滚动 -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志文件的总大小，0 表示不限制 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 日志文件的保留天数 -->
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ASYNC_POINT_LOG_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="POINT_LOG_APPENDER"/>
+    </appender>
+
+    <jmxConfigurator/>
+
+</included>

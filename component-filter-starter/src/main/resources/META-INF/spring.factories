@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.com.zerobug.component.filter.config.NuclearAutoConfiguration,\
+  cn.com.zerobug.component.filter.encrypt.EncryptResponseBodyAdvice

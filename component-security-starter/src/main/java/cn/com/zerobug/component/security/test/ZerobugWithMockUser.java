@@ -14,8 +14,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@WithSecurityContext(factory = NuclearWithMockUserSecurityContextFactory.class)
-public @interface NuclearWithMockUser {
+@WithSecurityContext(factory = ZerobugWithMockUserSecurityContextFactory.class)
+public @interface ZerobugWithMockUser {
 
     /**
      * userId to be used.

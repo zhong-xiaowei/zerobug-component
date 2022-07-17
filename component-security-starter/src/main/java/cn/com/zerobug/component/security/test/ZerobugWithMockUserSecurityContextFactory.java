@@ -19,12 +19,12 @@ import java.util.List;
  * @author zhongxiaowei
  * @date 2022/4/12
  */
-public class NuclearWithMockUserSecurityContextFactory implements WithSecurityContextFactory<NuclearWithMockUser> {
+public class ZerobugWithMockUserSecurityContextFactory implements WithSecurityContextFactory<ZerobugWithMockUser> {
 
     private static final String USER = "USER";
 
     @Override
-    public SecurityContext createSecurityContext(NuclearWithMockUser withUser) {
+    public SecurityContext createSecurityContext(ZerobugWithMockUser withUser) {
         Assert.notNull(withUser.id(), "id must not be null");
         Assert.notNull(withUser.username(), () -> withUser + " cannot have null username on both username and value properties");
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

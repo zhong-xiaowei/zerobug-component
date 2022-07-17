@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(value = {
-        NuclearFilterChainAutoConfiguration.class
+        ZerobugFilterChainAutoConfiguration.class
 })
-public class NuclearAutoConfiguration {
+public class ZerobugAutoConfiguration {
 
 }

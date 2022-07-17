@@ -10,12 +10,12 @@ import java.util.List;
  * @author zhongxiaowei
  * @date 2022/1/1
  */
-public class NuclearFilterChainManager extends GenericFilterBean {
+public class ZerobugFilterChainManager extends GenericFilterBean {
 
     private List<Filter> preFilters;
     private List<Filter> postFilters;
 
-    public NuclearFilterChainManager(List<Filter> preFilters) {
+    public ZerobugFilterChainManager(List<Filter> preFilters) {
         this.preFilters = preFilters;
     }
 

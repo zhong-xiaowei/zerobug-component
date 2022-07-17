@@ -33,7 +33,7 @@ import java.util.List;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableConfigurationProperties(SecurityProperties.class)
 @RequiredArgsConstructor
-public class NuclearSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+public class ZerobugSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler                       accessDeniedHandler;

@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author zhongxiaowei
  * @date 2022/4/3
  */
-public class NuclearMdcFilter extends MDCInsertingServletFilter {
+public class ZerobugMdcFilter extends MDCInsertingServletFilter {
 
     public static final String HEADER_FOR_TRACE_ID = "X-TRACE-ID";
 

@@ -31,8 +31,8 @@ import java.util.List;
  * @date 2022/3/20
  */
 @Configuration
-@Import(NuclearSecurityConfigurerAdapter.class)
-public class NuclearSecurityAutoConfiguretion {
+@Import(ZerobugSecurityConfigurerAdapter.class)
+public class ZerobugSecurityAutoConfiguretion {
 
     @Resource
     private CacheCommand cacheCommand;

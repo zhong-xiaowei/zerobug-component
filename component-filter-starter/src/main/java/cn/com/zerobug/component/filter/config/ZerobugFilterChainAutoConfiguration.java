@@ -1,6 +1,6 @@
 package cn.com.zerobug.component.filter.config;
 
-import cn.com.zerobug.component.filter.chain.NuclearFilterChainManager;
+import cn.com.zerobug.component.filter.chain.ZerobugFilterChainManager;
 import cn.com.zerobug.component.filter.chain.config.FilterGlobalConfig;
 import cn.com.zerobug.component.filter.properties.EncryptProperties;
 import cn.com.zerobug.component.filter.properties.SqlSecurityProperties;
@@ -25,25 +25,25 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
         XssSecurityProperties.class,
         EncryptProperties.class
 })
-public class NuclearFilterChainAutoConfiguration {
+public class ZerobugFilterChainAutoConfiguration {
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean(NuclearFilterChainManager nuclearFilterChainManage) {
+    public FilterRegistrationBean filterRegistrationBean(ZerobugFilterChainManager filterChainManager) {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setName("zerobug-filter-chain");
-        registrationBean.setFilter(nuclearFilterChainManage);
+        registrationBean.setFilter(filterChainManager);
         return registrationBean;
     }
 
     /**
      * 链路管理器
      *
-     * @return {@link NuclearFilterChainManager}
+     * @return {@link ZerobugFilterChainManager}
      */
     @Bean
-    @ConditionalOnMissingBean(NuclearFilterChainManager.class)
-    public NuclearFilterChainManager nuclearFilterChainManage(FilterGlobalConfig filterGlobalConfig) {
-        NuclearFilterChainManager chainManage = new NuclearFilterChainManager(filterGlobalConfig.getFilters());
+    @ConditionalOnMissingBean(ZerobugFilterChainManager.class)
+    public ZerobugFilterChainManager zerobugFilterChainManage(FilterGlobalConfig filterGlobalConfig) {
+        ZerobugFilterChainManager chainManage = new ZerobugFilterChainManager(filterGlobalConfig.getFilters());
         return chainManage;
     }
 

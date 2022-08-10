@@ -16,15 +16,13 @@ public interface Encryptor {
     /**
      * 请求解密
      * @param data
-     * @param properties
      * @return
      */
-    Object requestDecrypt(Object data, EncryptProperties properties);
+    Object requestDecrypt(String data);
 
     /**
      * 响应加密
      *
-     * @param properties
      * @param data
      * @param methodParameter
      * @param mediaType
@@ -33,7 +31,7 @@ public interface Encryptor {
      * @param response
      * @return
      */
-    Object responseEncrypt(EncryptProperties properties, Object data, MethodParameter methodParameter,
+    Object responseEncrypt(Object data, MethodParameter methodParameter,
                            MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass,
                            ServerHttpRequest request, ServerHttpResponse response);
 

@@ -28,12 +28,12 @@ public class Sm4Encryptor implements Encryptor {
     }
 
     @Override
-    public Object requestDecrypt(Object ciphertext, EncryptProperties properties) {
-        return sm4.decryptStr(ciphertext.toString());
+    public Object requestDecrypt(String ciphertext) {
+        return sm4.decryptStr(ciphertext);
     }
 
     @Override
-    public Object responseEncrypt(EncryptProperties properties, Object data, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object responseEncrypt(Object data, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
         return sm4.encryptHex(JSON.toJSONString(data));
     }
 

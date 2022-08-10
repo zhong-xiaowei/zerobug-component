@@ -50,7 +50,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         ServletServerHttpResponse servletServerHttpResponse = (ServletServerHttpResponse) response;
         HttpServletResponse servletResponse = servletServerHttpResponse.getServletResponse();
         servletResponse.setHeader(HEADER_FOR_CIPHERTEXT, Boolean.TRUE.toString());
-        return encryptor.responseEncrypt(properties, data, methodParameter, mediaType, aClass, request, response);
+        return encryptor.responseEncrypt(data, methodParameter, mediaType, aClass, request, response);
     }
 
     /**

@@ -22,8 +22,6 @@ public class RepeatedlyInternalFilter extends BaseInternalFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         String ct;
         if ((ct = request.getContentType()) != null
                 && ct.contains(MediaType.APPLICATION_JSON_VALUE)) {

@@ -32,12 +32,12 @@ public class Sm2Encryptor implements Encryptor {
     }
 
     @Override
-    public Object requestDecrypt(Object ciphertext, EncryptProperties properties) {
-        return sm2.encrypt(JSON.toJSONString(ciphertext).getBytes());
+    public Object requestDecrypt(String ciphertext) {
+        return sm2.encrypt(ciphertext.getBytes());
     }
 
     @Override
-    public Object responseEncrypt(EncryptProperties properties, Object data, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object responseEncrypt(Object data, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
         return sm2.decrypt(JSON.toJSONString(data).getBytes());
     }
 

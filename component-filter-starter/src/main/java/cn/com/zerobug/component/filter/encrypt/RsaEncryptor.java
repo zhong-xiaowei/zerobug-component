@@ -25,12 +25,12 @@ public class RsaEncryptor implements Encryptor {
     }
 
     @Override
-    public Object requestDecrypt(Object data, EncryptProperties properties) {
-        return rsa.encryptHex(JSON.toJSONString(data), KeyType.PrivateKey);
+    public Object requestDecrypt(String ciphertext) {
+        return rsa.encryptHex(ciphertext, KeyType.PrivateKey);
     }
 
     @Override
-    public Object responseEncrypt(EncryptProperties properties, Object data, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object responseEncrypt(Object data, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
         return rsa.encryptHex(JSON.toJSONString(data), KeyType.PrivateKey);
     }
 

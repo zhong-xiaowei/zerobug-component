@@ -2,6 +2,8 @@ package cn.com.zerobug.component.filter.encrypt;
 
 import cn.com.zerobug.component.filter.properties.EncryptProperties;
 import cn.hutool.core.util.HexUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.alibaba.fastjson.JSON;
@@ -26,15 +28,16 @@ public class AesEncryptor implements Encryptor {
     }
 
     @Override
-    public Object requestDecrypt(Object data, EncryptProperties properties) {
-        return symmetricCrypto.encrypt(JSON.toJSONString(data));
+    public Object requestDecrypt(String ciphertext) {
+        return symmetricCrypto.decryptStr(ciphertext);
     }
 
     @Override
-    public Object responseEncrypt(EncryptProperties properties, Object data,
+    public Object responseEncrypt(Object data,
                                   MethodParameter methodParameter, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> aClass,
                                   ServerHttpRequest request, ServerHttpResponse response) {
         return symmetricCrypto.encryptHex(JSON.toJSONString(data));
     }
+
 }

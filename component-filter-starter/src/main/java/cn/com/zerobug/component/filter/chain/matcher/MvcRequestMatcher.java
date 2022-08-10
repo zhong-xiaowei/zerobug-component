@@ -43,6 +43,10 @@ public class MvcRequestMatcher implements RequestMatcher {
             return null;
         }
         A annotation = handlerMethod.getMethodAnnotation(annotationClass);
+        if (annotation == null){
+            // 方法找不到 去类找
+            annotation = handlerMethod.getBeanType().getAnnotation(annotationClass);
+        }
         return annotation;
     }
 

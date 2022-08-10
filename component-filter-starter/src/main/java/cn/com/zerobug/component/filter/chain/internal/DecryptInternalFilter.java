@@ -42,12 +42,13 @@ public class DecryptInternalFilter extends BaseInternalFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         if (!checkIfEnable(request)) {
             chain.doFilter(request, response);
-        }
-        try {
-            RepeatedlyRequestWrapper wrapper = decryptHandle(request);
-            chain.doFilter(wrapper, response);
-        } catch (IllegalRequestException e) {
-            rejectHandler.afterReject(request, response, e);
+        }else {
+            try {
+                RepeatedlyRequestWrapper wrapper = decryptHandle(request);
+                chain.doFilter(wrapper, response);
+            } catch (IllegalRequestException e) {
+                rejectHandler.afterReject(request, response, e);
+            }
         }
     }
 
@@ -81,7 +82,7 @@ public class DecryptInternalFilter extends BaseInternalFilter {
             ciphertext = wrapper.getBody();
             if (StrUtil.isNotEmpty(ciphertext)) {
                 Encryptor encryptor        = EncryptorFactory.generate(properties);
-                Object    decryptedContent = encryptor.requestDecrypt(ciphertext, properties);
+                Object    decryptedContent = encryptor.requestDecrypt(ciphertext);
                 wrapper.setBody(decryptedContent.toString().getBytes());
             }
         } catch (Exception e) {

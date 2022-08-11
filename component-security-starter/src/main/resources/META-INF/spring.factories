@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.com.zerobug.component.security.config.ZerobugSecurityAutoConfiguretion
+  cn.com.zerobug.component.security.config.EncryptAutoConfiguration

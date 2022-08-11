@@ -28,6 +28,7 @@ public class ZerobugFilterChainManager extends GenericFilterBean {
         if (preFilters == null || preFilters.size() == 0) {
             doFilter(request, response, chain);
             // TODO: 执行postFilter 后续完善
+
             return;
         }
         //在这个位置是做请求的拦截

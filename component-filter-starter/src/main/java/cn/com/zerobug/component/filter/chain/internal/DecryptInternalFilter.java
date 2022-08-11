@@ -73,7 +73,6 @@ public class DecryptInternalFilter extends BaseInternalFilter {
     private RepeatedlyRequestWrapper decryptHandle(HttpServletRequest request) {
         String                   ciphertext = null;
         // 当前链路只支持 JSON格式，如果需要其他格式需要重新包装一下进行处理
-        // new RepeatedlyRequestWrapper(request)
         RepeatedlyRequestWrapper wrapper    = getRepeatedlyWrapper(request);
         if (wrapper == null) {
             throw new IllegalRequestException("不正确的请求");

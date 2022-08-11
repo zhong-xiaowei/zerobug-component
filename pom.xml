@@ -21,6 +21,7 @@
         <module>component-translate-starter</module>
         <module>component-swagger-starter</module>
         <module>component-excel-starter</module>
+        <module>component-security-starter</module>
     </modules>
 
     <properties>
